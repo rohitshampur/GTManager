@@ -29,7 +29,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	private static final int DOWNLOAD_DIALOG_PROGRESS = 0;
+	
 	private EditText ed_email;
 	private EditText ed_pass;
 	private String email;
