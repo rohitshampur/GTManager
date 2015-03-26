@@ -1,0 +1,89 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.uttara.gtmanager.MemberDetailActivity" >
+
+    <TextView
+        android:id="@+id/emplNametxtvw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/emplname_lbl"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/lastnametxtvw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/emplNametxtvw"
+        android:layout_below="@+id/emplNametxtvw"
+        android:layout_marginTop="14dp"
+        android:text="@string/lastnametxtvw_lbl"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/phonetxtvw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/emailtxtvw"
+        android:layout_below="@+id/emailtxtvw"
+        android:layout_marginTop="14dp"
+        android:text="@string/phonetxtvw_lbl"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/blnklnametxtvw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/lastnametxtvw"
+        android:layout_alignLeft="@+id/blnknametxtvw"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/blnkemailtxtvw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/emailtxtvw"
+        android:layout_alignBottom="@+id/emailtxtvw"
+        android:layout_alignLeft="@+id/blnklnametxtvw"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/blnkphntxtvw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/phonetxtvw"
+        android:layout_alignLeft="@+id/blnkemailtxtvw"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/emailtxtvw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/lastnametxtvw"
+        android:layout_below="@+id/lastnametxtvw"
+        android:layout_marginTop="16dp"
+        android:text="@string/emailtxtvw_lbl"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/blnknametxtvw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/emplNametxtvw"
+        android:layout_alignBottom="@+id/emplNametxtvw"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/emplNametxtvw"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>
