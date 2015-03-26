@@ -131,7 +131,7 @@ public class ProjectsList extends ListActivity {
 			if(pbl.size()>0){
 				listProjAdapter = new ProjectListAdapter(activity, pbl);
 				setListAdapter(listProjAdapter);
-				Toast.makeText(getApplicationContext(), "Loaded Project list ", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "Loaded Project list ", Toast.LENGTH_SHORT).show();
 				pd.dismiss();
 			}else
 				Toast.makeText(getApplicationContext(), "List empty", Toast.LENGTH_SHORT).show();;

@@ -1,17 +1,19 @@
 package com.uttara.gtmanager;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,18 +22,27 @@ public class AddProject extends Activity {
 	private TextView dateView;
 	public static final int CHOOSE_MEMBER_RESULT = 1;
 	ArrayList<String >str =new ArrayList<String>();
+	Calendar c = Calendar.getInstance();
+	int year = c.get(Calendar.YEAR);
+	int month = c.get(Calendar.MONTH);
+	int day = c.get(Calendar.DAY_OF_MONTH);
+	String selectedDate = null;
+	private EditText projName ;
+	private EditText projDesc ;
+	private EditText projType ;
 	
- 
-	private int year;
-	private int month;
-	private int day;
- 
+	
 	static final int DATE_DIALOG_ID = 999;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_project);
 		dateView = (TextView) findViewById(R.id.dateView);
+		projName = (EditText) findViewById(R.id.projectName_fld);
+		projDesc = (EditText) findViewById(R.id.description_fld);
+		projType = (EditText) findViewById(R.id.typeOfPro_fld);
+		
+		
 		
 	}
 	
@@ -49,6 +60,8 @@ public class AddProject extends Activity {
 		switch (id) {
 		case DATE_DIALOG_ID:
 		   // set date picker as current date
+			 
+			
 		   return new DatePickerDialog(this, datePickerListener, 
                          year, month,day);
 		}
@@ -65,6 +78,7 @@ public class AddProject extends Activity {
 		day = selectedDay;
 		Log.d(Config.TAG , "date "+month+" "+day+" "+year);	
 		dateView.setText(day+"-"+month+"-"+year);
+		selectedDate = ""+day+"-"+month+"-"+year;
 		// set selected date into textview
 		
 			
@@ -87,17 +101,27 @@ public class AddProject extends Activity {
 			
 				if(data != null){
 				name = (String) data.getSerializableExtra("item");
-				System.out.println(name);
-				one:for(int i=0;i<str.size();i++){
+				System.out.println("before for loop"+name+"size"+str.size());
+				if(str.size() == 0){
+					str.add(name);
+				}else{
+				one:for(int i=0;i<=str.size();i++){
+					System.out.println(str.get(i));
+					
 					if(str.get(i).equals(name)){
-						Toast.makeText(this, "Employee already selected", Toast.LENGTH_SHORT).show();;
+						Log.d(Config.TAG, "name "+name);
+						Toast.makeText(this, "Employee already selected", Toast.LENGTH_LONG).show();
+						break one;
 					}else
-					{
+					{	
+						Log.d(Config.TAG, "name "+name);
 						str.add(name);
 						break one;
+						
 					}
 				}
-				
+				}
+				System.out.println("after for loop"+name);
 				Log.d(Config.TAG, "String data"+str);
 				}else
 				{
@@ -113,6 +137,17 @@ public class AddProject extends Activity {
 				//dataAdapter.addAll(str);
 				dataAdapter.notifyDataSetChanged();
 				
+			
+		}
+		
+		
+		private class OnlineAddProject extends AsyncTask<Void ,Void, Void>{
+
+			@Override
+			protected Void doInBackground(Void... params) {
+				// TODO Auto-generated method stub
+				return null;
+			}
 			
 		}
 	

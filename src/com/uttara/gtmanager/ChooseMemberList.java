@@ -61,7 +61,7 @@ public class ChooseMemberList extends ListActivity {
 		intent.putExtra("item", currMember.getName());
 		setResult(1, intent);
 			finish();
-			Toast.makeText(getApplicationContext(), "selected member"+currMember, Toast.LENGTH_SHORT).show();
+			
          /*else
          {
         	Intent intent = new Intent(getApplicationContext(), AddProject.class);
@@ -161,7 +161,7 @@ public class ChooseMemberList extends ListActivity {
 				    }
 				};*/ 
 				setListAdapter(listMemberAdapter);
-				Toast.makeText(getApplicationContext(), "Loaded Member list ", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "Loaded Member list ", Toast.LENGTH_SHORT).show();
 				pd.dismiss();
 			}else
 				Toast.makeText(getApplicationContext(), "List empty", Toast.LENGTH_SHORT).show();;

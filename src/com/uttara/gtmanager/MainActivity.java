@@ -166,13 +166,13 @@ private class OnlineLogin extends AsyncTask<LogBean, Void, JSONObject>{
 			
 				
 				if(res.equals(Config.ROLE_MANAGER)){
-				Toast.makeText(getApplicationContext(),"Login Successfull!",Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(),"Login Successfull!",Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(getApplicationContext(), ManagerMenuActivity.class);
 				startActivity(intent);
 				finish();
 				}else 
 					if(res.equals(Config.ROLE_EMPL)){
-						Toast.makeText(getApplicationContext(),"Login Successfull!",Toast.LENGTH_LONG).show();
+						Toast.makeText(getApplicationContext(),"Login Successfull!",Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent(getApplicationContext(), EmplMenuActivity.class);
 						startActivity(intent);
 						finish();
