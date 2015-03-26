@@ -27,7 +27,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	
+	//Login activity
+	//Register Activity
 	private EditText ed_email;
 	private EditText ed_pass;
 	private String email;
