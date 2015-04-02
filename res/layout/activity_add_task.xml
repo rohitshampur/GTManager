@@ -1,71 +1,112 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.uttara.gtmanager.AddTask" >
+    android:layout_height="wrap_content"
+    android:fillViewport="true" >
 
-    <EditText
-        android:id="@+id/taskName_fld"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
-        android:ems="10" >
+ 
+        <EditText
+            android:id="@+id/description_fld"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/taskName_fld"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp"
+            android:ems="10"
+            android:hint="@string/hint_taskDescription_fld" />
 
-        <requestFocus />
-    </EditText>
+        <TextView
+            android:id="@+id/dateView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/description_fld"
+            android:layout_below="@+id/description_fld"
+            android:layout_marginTop="16dp"
+            android:text="@string/dateView_lbl"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <EditText
-        android:id="@+id/description_fld"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/taskName_fld"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
-        android:ems="10" />
+        <Button
+            android:id="@+id/btnpickDate"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/dateView"
+            android:layout_alignBottom="@+id/dateView"
+            android:layout_alignRight="@+id/description_fld"
+            android:onClick="pickDate"
+            android:text="@string/btnpickDate_lbl" />
 
-    <TextView
-        android:id="@+id/dateView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/description_fld"
-        android:layout_below="@+id/description_fld"
-        android:layout_marginTop="16dp"
-        android:text="@string/dateView_lbl"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <Spinner
+            android:id="@+id/prioritySpinner1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnpickDate"
+            android:layout_toRightOf="@+id/setPriority_txtvw"
+            android:entries="@array/priority_arrays"
+            android:prompt="@string/priority_prompt" />
 
-    <Button
-        android:id="@+id/btnpickDate"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/dateView"
-        android:layout_alignBottom="@+id/dateView"
-        android:layout_alignRight="@+id/description_fld"
-        android:text="@string/btnpickDate_lbl" />
+        <TextView
+            android:id="@+id/setPriority_txtvw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/prioritySpinner1"
+            android:layout_alignLeft="@+id/dateView"
+            android:text="@string/setPrioritytxtvw_lbl"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/dateView"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/btnpickDate"
-        android:entries="@array/priority_arrays"
-        android:prompt="@string/priority_prompt" />
+        <TextView
+            android:id="@+id/selectMember_txtvw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/setPriority_txtvw"
+            android:layout_below="@+id/prioritySpinner1"
+            android:layout_marginTop="24dp"
+            android:text="@string/selectMember_txtvw_lbl"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/spinner1"
-        android:layout_below="@+id/spinner1"
-        android:layout_marginTop="17dp"
-        android:layout_toLeftOf="@+id/btnpickDate" />
+        <EditText
+            android:id="@+id/taskName_fld"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/description_fld"
+            android:ems="10"
+            android:hint="@string/hint_taskname_fld" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/selectMember_txtvw"
+            android:layout_alignRight="@+id/selectedMembers"
+            android:layout_below="@+id/selectMember_txtvw" />
+
+        <TextView
+            android:id="@+id/selectedMembers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinner1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="21dp"
+            android:text="@string/selectedMembers_lbl"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/selectedMemberForTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/selectedMembers"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp"
+           
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/selectedMemberForTask"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp"
+            android:text="@string/btnSubmit_lbl" 
+            android:onClick="submitTask"/>
 
 </RelativeLayout>

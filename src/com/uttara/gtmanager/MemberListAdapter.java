@@ -2,10 +2,7 @@ package com.uttara.gtmanager;
 
 import java.util.List;
 
-import com.uttara.gtmanager.ProjectListAdapter.ProjectListView;
-
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

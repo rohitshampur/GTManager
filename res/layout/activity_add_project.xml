@@ -51,15 +51,23 @@
        	android:text="@string/dateView_lbl"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <EditText
-        android:id="@+id/description_fld"
+    <Button
+        android:id="@+id/btnAddTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/dateView"
+        android:layout_alignLeft="@+id/spinner1"
+        android:layout_alignRight="@+id/description_fld"
         android:layout_below="@+id/spinner1"
-        android:layout_marginTop="14dp"
-        android:ems="10"
-        android:hint="@string/hint_description_fld" />
+        android:onClick="addTask"
+        android:text="@string/btnAddTask_lbl" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnChooseMem"
+        android:layout_alignRight="@+id/btnpickDate"
+        android:layout_below="@+id/btnChooseMem" />
 
     <EditText
         android:id="@+id/typeOfPro_fld"
@@ -67,12 +75,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/description_fld"
         android:layout_below="@+id/description_fld"
-        android:layout_marginTop="14dp"
         android:ems="10"
-        android:hint="@string/hint_typeOfProj_fld" >
-
-        <requestFocus />
-    </EditText>
+        android:hint="@string/hint_typeOfProj_fld" />
 
     <Button
         android:id="@+id/add_btn"
@@ -80,16 +84,38 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/typeOfPro_fld"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp"
-        android:text="@string/add_btn_lbl" />
+        android:text="@string/add_btn_lbl" 
+        android:onClick="addProject"/>
 
-    <Spinner
-        android:id="@+id/spinner1"
+    <EditText
+        android:id="@+id/description_fld"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/description_fld"
-        android:layout_alignRight="@+id/description_fld"
-        android:layout_below="@+id/btnChooseMem"
-        android:layout_marginTop="18dp" />
+        android:layout_alignRight="@+id/btnpickDate"
+        android:layout_below="@+id/btnAddTask"
+        android:layout_marginTop="66dp"
+        android:ems="10"
+        android:hint="@string/hint_description_fld" >
+
+        <requestFocus />
+    </EditText>
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnAddTask"
+        android:layout_alignRight="@+id/btnAddTask"
+        android:layout_below="@+id/btnAddTask" />
+
+    <Button
+        android:id="@+id/btnAddAnotherTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btnAddTask"
+        android:layout_alignBottom="@+id/btnAddTask"
+        android:layout_alignLeft="@+id/btnAddTask"
+        android:layout_alignRight="@+id/btnChooseMem"
+        android:text="@string/btnAddAnotherTask" />
     
 </RelativeLayout>

@@ -54,9 +54,11 @@ public class ChooseMemberList extends ListActivity {
 		
 		super.onListItemClick(l, v, position, id);
 		
-		MemberBean currMember = (MemberBean) listMemberAdapter.getItem(position);
+		MemberBeanParcable currMember = (MemberBeanParcable) listMemberAdapter.getItem(position);
 		Intent intent = new Intent();
-		intent.putExtra("item1", currMember);
+		Bundle b = new Bundle();
+		b.putParcelable("item1", currMember);
+		intent.putExtra("item1", b);
 		
 		intent.putExtra("item", currMember.getName());
 		setResult(1, intent);
@@ -70,13 +72,13 @@ public class ChooseMemberList extends ListActivity {
 		
        
 	}
-	private class FetchMemberList extends AsyncTask<Void, Void, List<MemberBean>>{
+	private class FetchMemberList extends AsyncTask<Void, Void, List<MemberBeanParcable>>{
 
 		@Override
-		protected List<MemberBean> doInBackground(Void... params) {
+		protected List<MemberBeanParcable> doInBackground(Void... params) {
 			HttpURLConnection con = null;
 			BufferedReader br = null;
-			List<MemberBean> mbl = new ArrayList<MemberBean>();
+			List<MemberBeanParcable> mbl = new ArrayList<MemberBeanParcable>();
 			try{
 				
 				String urlStr = new String(Config.CONFIG+"/getJsonListOfEmployees");
@@ -100,7 +102,7 @@ public class ChooseMemberList extends ListActivity {
 				
 				for(int i=0;i<arr.length();i++)
 				{	 
-					MemberBean mb = new MemberBean();
+					MemberBeanParcable mb = new MemberBeanParcable();
 					org.json.JSONObject object2=(org.json.JSONObject) arr.get(i);
 					mb.setEmail(object2.get("email").toString());
 					mb.setName(object2.get("firstName").toString());
@@ -135,11 +137,11 @@ public class ChooseMemberList extends ListActivity {
 			return null;
 		}
 		@Override
-		protected void onPostExecute(List<MemberBean> mbl) {
+		protected void onPostExecute(List<MemberBeanParcable> mbl) {
 			
 		
 			List<String> str = new ArrayList<>();
-			for(MemberBean b  : mbl){
+			for(MemberBeanParcable b  : mbl){
 				str.add(b.getName().toString());
 				str.add(b.getEmail().toString());
 			}
@@ -162,7 +164,7 @@ public class ChooseMemberList extends ListActivity {
 				};*/ 
 				setListAdapter(listMemberAdapter);
 				Toast.makeText(getApplicationContext(), "Loaded Member list ", Toast.LENGTH_SHORT).show();
-				pd.dismiss();
+				
 			}else
 				Toast.makeText(getApplicationContext(), "List empty", Toast.LENGTH_SHORT).show();;
 			super.onPostExecute(mbl);
@@ -205,7 +207,8 @@ public class ChooseMemberList extends ListActivity {
   
            });
 			
-		}*/
+		}*/pd.dismiss();
+		
 			}
 		
 		

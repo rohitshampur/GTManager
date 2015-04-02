@@ -41,6 +41,8 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		ed_email = (EditText) findViewById(R.id.email_fld);
+		ed_email.requestFocus();
 	}
 	
 public void login(View v){
@@ -142,6 +144,7 @@ private class OnlineLogin extends AsyncTask<LogBean, Void, JSONObject>{
 		}catch(Exception e){
 			Log.d("gtmanager", "errormsg of catch block of bckgrnd Login "+e.getMessage());
 			e.printStackTrace();
+			//Toast.makeText(getApplicationContext(), e.getMessage(),Toast.LENGTH_SHORT).show();
 		}finally{
 			try {
 				if(br !=null)
@@ -164,19 +167,13 @@ private class OnlineLogin extends AsyncTask<LogBean, Void, JSONObject>{
 			// check if the role is manager or employee and show the menu respectively
 			
 				
-				if(res.equals(Config.ROLE_MANAGER)){
+				if(res.equals(Config.SUCCESS)){
 				Toast.makeText(getApplicationContext(),"Login Successfull!",Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(getApplicationContext(), ManagerMenuActivity.class);
 				startActivity(intent);
 				finish();
-				}else 
-					if(res.equals(Config.ROLE_EMPL)){
-						Toast.makeText(getApplicationContext(),"Login Successfull!",Toast.LENGTH_SHORT).show();
-						Intent intent = new Intent(getApplicationContext(), EmplMenuActivity.class);
-						startActivity(intent);
-						finish();
-				}else
-					Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
+				}
+				Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
 				
 			}
 		

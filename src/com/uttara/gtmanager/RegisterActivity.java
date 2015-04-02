@@ -13,8 +13,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -147,6 +148,16 @@ public class RegisterActivity extends Activity {
 		protected void onPostExecute(JSONObject result) {
 			if(result != null){
 				String status = result.get("status").toString();
+				System.out.println(status);
+				if(status.equals(Config.SUCCESS)){
+					Toast.makeText(getApplicationContext(),"Successfully registered", Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent(getApplicationContext(), ManagerMenuActivity.class);
+					startActivity(intent);
+				}
+				else{
+					Toast.makeText(getApplicationContext(), status, Toast.LENGTH_SHORT).show();
+				}
+				
 				
 			}
 			 

@@ -2,6 +2,7 @@ package com.uttara.gtmanager;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class ProjectBean implements Serializable {
 
@@ -19,6 +20,20 @@ public class ProjectBean implements Serializable {
 	private String taskName;
 	private String taskDesc;
 	private Date taskCreatedDate;
+	private String projCompletionDate;
+	public String getProjCompletionDate() {
+		return projCompletionDate;
+	}
+	public void setProjCompletionDate(String projCompletionDate) {
+		this.projCompletionDate = projCompletionDate;
+	}
+	private List<String> list;
+	public List<String> getList() {
+		return list;
+	}
+	public void setList(List<String> list) {
+		this.list = list;
+	}
 	public int getProject_sl_no() {
 		return project_sl_no;
 	}
@@ -79,6 +94,23 @@ public class ProjectBean implements Serializable {
 	public void setTaskCreatedDate(Date taskCreatedDate) {
 		this.taskCreatedDate = taskCreatedDate;
 	}
+	public String validate(){
+		String msg = "";
+		if(projectName==null||projectName.trim().equals("")){
+			msg=msg+"Project name cannot be empty\n";
+		}
+		if(proj_CreatedDate==null||proj_CreatedDate.trim().equals("")){
+			msg = msg+"Select created date\n";
+		}
+		if(description==null||description.trim().equals(""));{
+			msg = msg+"Please give description\n";
+		}
+		if(typeOfProject==null||typeOfProject.trim().equals("")){
+			msg = msg+"Type of project cannot be empty\n";
+		}
+		return msg;
+		
+	}
 	@Override
 	public String toString() {
 		return "ProjectBean [project_sl_no=" + project_sl_no + ", projectName="
@@ -86,7 +118,9 @@ public class ProjectBean implements Serializable {
 				+ ", description=" + description + ", typeOfProject="
 				+ typeOfProject + ", task_sl_no=" + task_sl_no + ", status="
 				+ status + ", taskName=" + taskName + ", taskDesc=" + taskDesc
-				+ ", taskCreatedDate=" + taskCreatedDate + "]";
+				+ ", taskCreatedDate=" + taskCreatedDate
+				+ ", projCompletionDate=" + projCompletionDate + ", list="
+				+ list + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -94,6 +128,11 @@ public class ProjectBean implements Serializable {
 		int result = 1;
 		result = prime * result
 				+ ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((list == null) ? 0 : list.hashCode());
+		result = prime
+				* result
+				+ ((projCompletionDate == null) ? 0 : projCompletionDate
+						.hashCode());
 		result = prime
 				* result
 				+ ((proj_CreatedDate == null) ? 0 : proj_CreatedDate.hashCode());
@@ -125,6 +164,16 @@ public class ProjectBean implements Serializable {
 			if (other.description != null)
 				return false;
 		} else if (!description.equals(other.description))
+			return false;
+		if (list == null) {
+			if (other.list != null)
+				return false;
+		} else if (!list.equals(other.list))
+			return false;
+		if (projCompletionDate == null) {
+			if (other.projCompletionDate != null)
+				return false;
+		} else if (!projCompletionDate.equals(other.projCompletionDate))
 			return false;
 		if (proj_CreatedDate == null) {
 			if (other.proj_CreatedDate != null)

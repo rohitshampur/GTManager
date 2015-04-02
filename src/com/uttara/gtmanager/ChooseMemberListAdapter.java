@@ -11,12 +11,12 @@ import android.widget.TextView;
 
 public class ChooseMemberListAdapter extends ArrayAdapter {
 	private Activity activity;
-	private List<MemberBean> mbl;
+	private List<MemberBeanParcable> mbl;
 	@SuppressWarnings("unchecked")
-	public ChooseMemberListAdapter(Activity activity, List<MemberBean> mbl) {
-		super(activity,android.R.id.list, mbl);
+	public ChooseMemberListAdapter(Activity activity, List<MemberBeanParcable> mbl2) {
+		super(activity,android.R.id.list, mbl2);
 		this.activity = activity;
-		this.mbl = mbl;
+		this.mbl = mbl2;
 	}
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -34,7 +34,7 @@ public class ChooseMemberListAdapter extends ArrayAdapter {
 		}else{
 			mv = (MemberListView) rowView.getTag();
 		}
-		MemberBean pb =mbl.get(position);
+		MemberBeanParcable pb =mbl.get(position);
 		mv.name.setText(pb.getName().toString());
 		mv.email.setText(pb.getEmail().toString());
 		

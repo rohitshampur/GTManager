@@ -69,6 +69,22 @@
             android:name=".ChooseMember"
             android:label="@string/title_activity_choose_member" >
         </activity>
+        <activity
+            android:name=".TaskListView"
+            android:label="@string/title_activity_task_list_view" >
+        </activity>
+        <activity
+            android:name=".MyTasks"
+            android:label="@string/title_activity_my_tasks" >
+        </activity>
+        <activity
+            android:name=".TaskDetail"
+            android:label="@string/title_activity_task_detail" >
+        </activity>
+        <activity
+            android:name=".AddTaskOnline"
+            android:label="@string/title_activity_add_task_online" >
+        </activity>
     </application>
 
 </manifest>

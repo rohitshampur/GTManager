@@ -2,6 +2,7 @@ package com.uttara.gtmanager;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
@@ -24,7 +25,12 @@ public class ManagerMenuActivity extends Activity {
 	public void reportsMenu(View v){
 		
 	}
-	public void tasksMenu(View v){
-		
+	public void taskMenu(View v){
+		Intent intent = new Intent(getApplicationContext(), MyTasks.class);
+		SharedPreferences pref = getSharedPreferences("gtmanager", MODE_PRIVATE);
+		String email = null;
+		email = pref.getString("email", "");
+		intent.putExtra("email", email);
+		startActivity(intent);
 	}
 }

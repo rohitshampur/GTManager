@@ -18,3 +18,9 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+#-keepclassmembers class * implements android.os.Parcelable {
+    static ** CREATOR;
+}
+#-keep class android.os.Parcelable.Creator
+#-keep class com.google.android.gms.location.ActivityRecognitionResult
+#-keep class com.google.android.gms.** {*;}

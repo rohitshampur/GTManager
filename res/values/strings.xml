@@ -17,13 +17,13 @@
     <string name="title_activity_manager_menu">ManagerMenuActivity</string>
     <string name="title_activity_empl_menu">EmplMenuActivity</string>
     <string name="project_btn_lbl">Projects</string>
-    <string name="task_btn_lbl">Tasks</string>
+    <string name="task_btn_lbl">My tasks</string>
     <string name="reports_btn_lbl">Reports</string>
     <string name="members_btn_lbl">Members</string>
     <string name="title_activity_projects_list">ProjectsList</string>
     <string name="add_btn_lbl">Add Project</string>
     <string name="project_textview_lbl">Project name</string>
-    <string name="project_date_txtvw_lbl">Date</string>
+    <string name="project_date_txtvw_lbl">Date of creation</string>
     <string name="project_type_txtvw_lbl">Type</string>
     <string name="test">test</string>
     <string name="title_activity_add_project">AddProject</string>
@@ -37,6 +37,8 @@
     <string name="btnpickDate_lbl">Pick</string>
     <string name="title_activity_add_task">AddTask</string>
     <string name="priority_prompt">choose priority</string>
+    <string name="memberListForProject_lbl">List of members</string>
+    <string name="btnAddAnotherTask">Add another task</string>
 
     <string-array name="priority_arrays">
         <item>0</item>
@@ -56,5 +58,20 @@
     <string name="title_activity_project_detail">Project Detail</string>
     <string name="title_activity_choose_member_list">Choose Member List</string>
     <string name="title_activity_choose_member">Choose Member</string>
+    <string name="hint_taskname_fld">Task name</string>
+    <string name="hint_taskDescription_fld">Task Description</string>
+    <string name="setPrioritytxtvw_lbl">Set priority</string>
+    <string name="selectMember_txtvw_lbl">Select member from list</string>
+    <string name="selectedMembers_lbl">Selected members for task</string>
+    <string name="btnSubmit_lbl">Submit</string>
+    <string name="btnReport_lbl">View reports</string>
+    <string name="btnViewTasks_lbl">View Tasks</string>
+    <string name="title_activity_task_list_view">Task List</string>
+    <string name="taskNameTxtvw_lbl">Task name</string>
+    <string name="statusTxtvw_lbl">Status</string>
+    <string name="title_activity_my_tasks">My Tasks</string>
+    <string name="title_activity_task_detail">Task Detail</string>
+    <string name="taskDesctxtvw_lbl">Description</string>
+    <string name="title_activity_add_task_online">AddTask</string>
 
 </resources>
