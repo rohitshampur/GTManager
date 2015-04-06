@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 public class ProjectBean implements Serializable {
 
 	/**
@@ -21,6 +24,20 @@ public class ProjectBean implements Serializable {
 	private String taskDesc;
 	private Date taskCreatedDate;
 	private String projCompletionDate;
+	private List<TaskBean> tasklist;
+	private List<String> emailList;
+	public List<String> getEmailList() {
+		return emailList;
+	}
+	public void setEmailList(List<String> emailList) {
+		this.emailList = emailList;
+	}
+	public List<TaskBean> getTasklist() {
+		return tasklist;
+	}
+	public void setTasklist(List<TaskBean> tasklist) {
+		this.tasklist = tasklist;
+	}
 	public String getProjCompletionDate() {
 		return projCompletionDate;
 	}
@@ -99,10 +116,10 @@ public class ProjectBean implements Serializable {
 		if(projectName==null||projectName.trim().equals("")){
 			msg=msg+"Project name cannot be empty\n";
 		}
-		if(proj_CreatedDate==null||proj_CreatedDate.trim().equals("")){
+		if(projCompletionDate==null||projCompletionDate.trim().equals("")){
 			msg = msg+"Select created date\n";
 		}
-		if(description==null||description.trim().equals(""));{
+		if(description==null||description.trim().equals("")){
 			msg = msg+"Please give description\n";
 		}
 		if(typeOfProject==null||typeOfProject.trim().equals("")){
@@ -119,8 +136,9 @@ public class ProjectBean implements Serializable {
 				+ typeOfProject + ", task_sl_no=" + task_sl_no + ", status="
 				+ status + ", taskName=" + taskName + ", taskDesc=" + taskDesc
 				+ ", taskCreatedDate=" + taskCreatedDate
-				+ ", projCompletionDate=" + projCompletionDate + ", list="
-				+ list + "]";
+				+ ", projCompletionDate=" + projCompletionDate + ", tasklist="
+				+ tasklist + ", emailList=" + emailList + ", list=" + list
+				+ "]";
 	}
 	@Override
 	public int hashCode() {
@@ -128,6 +146,8 @@ public class ProjectBean implements Serializable {
 		int result = 1;
 		result = prime * result
 				+ ((description == null) ? 0 : description.hashCode());
+		result = prime * result
+				+ ((emailList == null) ? 0 : emailList.hashCode());
 		result = prime * result + ((list == null) ? 0 : list.hashCode());
 		result = prime
 				* result
@@ -148,6 +168,8 @@ public class ProjectBean implements Serializable {
 				+ ((taskName == null) ? 0 : taskName.hashCode());
 		result = prime * result + task_sl_no;
 		result = prime * result
+				+ ((tasklist == null) ? 0 : tasklist.hashCode());
+		result = prime * result
 				+ ((typeOfProject == null) ? 0 : typeOfProject.hashCode());
 		return result;
 	}
@@ -164,6 +186,11 @@ public class ProjectBean implements Serializable {
 			if (other.description != null)
 				return false;
 		} else if (!description.equals(other.description))
+			return false;
+		if (emailList == null) {
+			if (other.emailList != null)
+				return false;
+		} else if (!emailList.equals(other.emailList))
 			return false;
 		if (list == null) {
 			if (other.list != null)
@@ -209,12 +236,63 @@ public class ProjectBean implements Serializable {
 			return false;
 		if (task_sl_no != other.task_sl_no)
 			return false;
+		if (tasklist == null) {
+			if (other.tasklist != null)
+				return false;
+		} else if (!tasklist.equals(other.tasklist))
+			return false;
 		if (typeOfProject == null) {
 			if (other.typeOfProject != null)
 				return false;
 		} else if (!typeOfProject.equals(other.typeOfProject))
 			return false;
 		return true;
+	}
+	
+	public String getJsonString1()
+	{
+		
+		JSONObject object= new JSONObject();
+		
+		object.put("projName", this.projectName);
+		object.put("projDesc", this.description);
+		object.put("projectCompletionDate", this.projCompletionDate);
+		object.put("typeOfProject", this.typeOfProject);
+		return object.toString();
+	}
+	public String getJsonString()
+	{
+		
+		JSONObject object= new JSONObject();
+		JSONArray jaArray = new JSONArray() ;
+		JSONArray jaArray2 = new JSONArray();
+		object.put("projName", this.projectName);
+		object.put("projDesc", this.description);
+		object.put("projectCompletionDate", this.projCompletionDate);
+		object.put("typeOfProject", this.typeOfProject);
+		JSONObject obj1;
+		for(TaskBean bean:tasklist)
+		{	
+			obj1 = new JSONObject();
+			obj1.put("taskName",bean.getTaskName());
+			obj1.put("taskDesc", bean.getTaskDesc());
+			obj1.put("taskCompletionDate", bean.getTaskCompletionDate());
+			obj1.put("priority", bean.getPriority());
+			obj1.put("email", bean.getEmployeeEmail());
+			jaArray.add(obj1);
+		}
+		JSONObject obj2;
+		for(String str :emailList){
+			obj2 = new JSONObject();
+			obj2.put("email", str);
+			jaArray2.add(obj2);
+		}
+		object.put("taskList", jaArray.toString());
+		object.put("emailList", jaArray2.toString());
+		return object.toString();
+		
+		
+		
 	}
 	
 }

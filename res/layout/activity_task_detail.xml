@@ -103,4 +103,14 @@
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <Button
+        android:id="@+id/btnEditTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/statusTxtvw"
+        android:layout_below="@+id/statusTxtvw"
+        android:layout_marginTop="49dp"
+        android:text="@string/btnEditTask_lbl"
+        android:onClick="updateStatus" />
+
 </RelativeLayout>

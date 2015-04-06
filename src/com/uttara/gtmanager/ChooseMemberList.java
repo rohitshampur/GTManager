@@ -24,12 +24,14 @@ public class ChooseMemberList extends ListActivity {
 	private ProgressDialog pd;
 
 	private ArrayAdapter<?> listMemberAdapter;
-	
+	private int i;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_choose_member_list);
+		i = 0;
+		
 		//lv = (ListView) findViewById(R.id.listView1);
 		
 	}
@@ -41,7 +43,7 @@ public class ChooseMemberList extends ListActivity {
 		pd.setMessage("Please wait");
 		pd.setCancelable(true);
 		pd.show();
-	
+		i++;
 		new FetchMemberList().execute();
 		super.onResume();
 		
@@ -59,8 +61,9 @@ public class ChooseMemberList extends ListActivity {
 		Bundle b = new Bundle();
 		b.putParcelable("item1", currMember);
 		intent.putExtra("item1", b);
-		
+		intent.putExtra("count", i);
 		intent.putExtra("item", currMember.getName());
+		
 		setResult(1, intent);
 			finish();
 			
@@ -166,7 +169,7 @@ public class ChooseMemberList extends ListActivity {
 				Toast.makeText(getApplicationContext(), "Loaded Member list ", Toast.LENGTH_SHORT).show();
 				
 			}else
-				Toast.makeText(getApplicationContext(), "List empty", Toast.LENGTH_SHORT).show();;
+				Toast.makeText(getApplicationContext(), "List empty", Toast.LENGTH_SHORT).show();
 			super.onPostExecute(mbl);
 			
 			/*setOnItemClickListener(new OnItemClickListener() {

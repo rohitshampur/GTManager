@@ -10,6 +10,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -83,6 +85,28 @@ public void register(View v){
 
 }
 
+public Dialog showDailog() {
+	
+	
+	
+	AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+	builder.setTitle("Login Failure");
+	builder.setMessage("Enter correct email/password");
+
+	builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			// Toast.makeText(getApplicationContext(), "clicked yes",
+			// Toast.LENGTH_LONG).show();
+			
+		}
+	});
+
+	
+
+	builder.setCancelable(false);
+	return builder.create();
+}
 private boolean checkInternet() {
     boolean haveConnectedWifi = false;
     boolean haveConnectedMobile = false;
@@ -172,13 +196,17 @@ private class OnlineLogin extends AsyncTask<LogBean, Void, JSONObject>{
 				Intent intent = new Intent(getApplicationContext(), ManagerMenuActivity.class);
 				startActivity(intent);
 				finish();
+				}else{
+				
+				pDialog.dismiss();
+				Dialog d = showDailog();
+				d.show();
 				}
-				Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
 				
 			}
 		
 		super.onPostExecute(result);
-		pDialog.dismiss();
+		
 	}
 	
 }

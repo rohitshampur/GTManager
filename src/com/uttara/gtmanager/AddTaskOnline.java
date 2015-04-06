@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -16,11 +17,14 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -71,7 +75,7 @@ public class AddTaskOnline extends Activity {
 		
 		prioritySpinner = (Spinner) findViewById(R.id.prioritySpinner1);
 		prioritySpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
+			
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -126,6 +130,7 @@ public class AddTaskOnline extends Activity {
 				tv.setText("");
 			}
 		});
+		new FetchMemberList(projName).execute();
 		}
 	@SuppressWarnings("deprecation")
 	public void pickDate(View v){
@@ -183,6 +188,99 @@ public class AddTaskOnline extends Activity {
 			
 			
 			}
+		
+		
+		private class FetchMemberList extends AsyncTask<String, Void, List<RegBean>>{
+			String projName ;
+			List<RegBean> listOfNames = new ArrayList<RegBean>();
+			public FetchMemberList(String projectName) {
+				this.projName = projectName;
+			}
+
+			@Override
+			protected List<RegBean> doInBackground(String... params) {
+				
+				HttpURLConnection con = null;
+				BufferedReader br = null;
+				
+				try
+				{
+					String urlStr = new String(Config.CONFIG+"/listMembersOfProject?projName="+projName);
+					URL url = new URL(urlStr); 
+					con = (HttpURLConnection) url.openConnection();
+					con.setRequestMethod("POST");
+					br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+					String response = br.readLine().toString();
+					Log.d("gtmanager","inside do in background after getting response. response = "+response.toString());
+					JSONParser parser = new JSONParser();
+					JSONObject jObj = (JSONObject) parser.parse(response);
+					Log.d("gtmanager","inside do in background after getting json object. json object = "+jObj.get("listOfNames"));
+					String str =  jObj.get("listOfNames").toString();
+					JSONObject obj1 = (JSONObject) parser.parse(str);
+					Log.d(Config.TAG, "000000000000000000"+obj1.get("beanList"));
+					String str1 = (String)obj1.get("beanList").toString();
+					JSONArray jArray = (JSONArray) parser.parse(str1);
+					List<RegBean> rbList = new ArrayList<RegBean>();
+					for (int i = 0; i < jArray.size(); i++) {
+						RegBean rb = new RegBean();
+						JSONObject obj = (JSONObject) jArray.get(i);
+						rb.setFname((String) obj.get("firstName"));
+						rb.setEmail((String) obj.get("email"));
+						rbList.add(rb);
+					}
+					Log.d(Config.TAG, "rblist........."+rbList);
+					/*List<TaskBean> taskBeans= new ArrayList<TaskBean>();
+					TaskBean taskBean;
+					JSONArray arrayTasks=(JSONArray) parser.parse((String) obj.get("listOfNames"));*/
+					//listOfNames = (List<RegBean>) obj.get("listOfNames");
+					return rbList;
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+				finally{
+					if(br!=null){
+						try {
+							br.close();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						con.disconnect();
+					}
+				}
+				return null;
+			}
+			
+			@Override
+			protected void onPostExecute(List<RegBean> result) {
+				Log.d(Config.TAG, "result>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>. = "+result);
+				List<RegBean> nameList = new ArrayList<RegBean>();
+				
+				tv = (TextView) findViewById(R.id.selectedMemberForTask);
+				mySpinner = (Spinner) findViewById(R.id.spinner1);
+				mySpinner.setAdapter(new CustomSpinnerAdapter1(AddTaskOnline.this, R.id.row_list,result));
+				mySpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+					@Override
+					public void onItemSelected(AdapterView<?> parent, View view,
+							int position, long id) {
+						// TODO Auto-generated method stub
+						RegBean rb = (RegBean) mySpinner.getItemAtPosition(position);
+						tv.setText(rb.getFname().toString());
+						memberEmail = rb.getEmail().toString();
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> parent) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+				
+				
+				super.onPostExecute(result);
+			}
+		}
 		private class AddTaskUpload extends AsyncTask<TaskBean, Void, JSONObject>{
 			private HttpURLConnection con = null;
 			private BufferedReader br = null;
@@ -190,7 +288,7 @@ public class AddTaskOnline extends Activity {
 			@Override
 			protected JSONObject doInBackground(TaskBean... params) {
 				try {
-				String urlStr = new String(Config.CONFIG+"/getJsonaddTaskForProjects?projectName="+tb.getProjectName()+"&taskName="+tb.getTaskName()+"&taskDesc="+tb.getTaskDesc()+"&priority="+tb.getPriority()+"&completionDate="+tb.getTaskCompletionDate()+"&employeeEmail"+tb.getEmployeeEmail());
+				String urlStr = new String(Config.CONFIG+"/getJsonaddTaskForProjects?projectName="+tb.getProjectName()+"&taskName="+tb.getTaskName()+"&taskDesc="+tb.getTaskDesc()+"&priority="+tb.getPriority()+"&completionDate="+tb.getTaskCompletionDate()+"&employeeEmail="+memberEmail);
 				
 					URL url = new URL(urlStr);
 					con = (HttpURLConnection) url.openConnection();

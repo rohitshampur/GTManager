@@ -41,7 +41,7 @@
     <ListView
         android:id="@+id/memberNameListView"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="150dp"
         android:layout_alignRight="@+id/projdate"
         android:layout_below="@+id/memberListForProject" >
     </ListView>
@@ -54,17 +54,6 @@
         android:layout_marginTop="20dp"
         android:text="@string/memberListForProject_lbl"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:id="@+id/btnViewTasks"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/memberNameListView"
-        android:layout_alignRight="@+id/memberNameListView"
-        android:layout_below="@+id/memberNameListView"
-        android:layout_marginTop="20dp"
-        android:text="@string/btnViewTasks_lbl" 
-        android:onClick="viewTasks"/>
 
     <TextView
         android:id="@+id/projname"
@@ -83,9 +72,8 @@
         android:layout_alignLeft="@+id/btnViewTasks"
         android:layout_alignRight="@+id/btnViewTasks"
         android:layout_below="@+id/btnViewTasks"
-        android:layout_marginTop="15dp"
-        android:text="@string/btnAddTask_lbl" 
-        android:onClick="addTaskOnline"/>
+        android:onClick="addTaskOnline"
+        android:text="@string/btnAddTask_lbl" />
 
     <Button
         android:id="@+id/btnReport"
@@ -94,7 +82,16 @@
         android:layout_alignLeft="@+id/add_btn"
         android:layout_alignRight="@+id/add_btn"
         android:layout_below="@+id/add_btn"
-        android:layout_marginTop="15dp"
         android:text="@string/btnReport_lbl" />
+
+    <Button
+        android:id="@+id/btnViewTasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/memberNameListView"
+        android:layout_alignRight="@+id/memberNameListView"
+        android:layout_below="@+id/memberNameListView"
+        android:onClick="viewTasks"
+        android:text="@string/btnViewTasks_lbl" />
 
 </RelativeLayout>

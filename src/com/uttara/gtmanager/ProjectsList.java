@@ -38,11 +38,11 @@ public class ProjectsList extends ListActivity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				ProjectBean currProj = (ProjectBean) listProjAdapter.getItem(position);
+				/*ProjectBean currProj = (ProjectBean) listProjAdapter.getItem(position);
 				Log.d("gtmanager", "current project = "+currProj);
 				Intent intent = new Intent(getApplicationContext(), ProjectsList.class);
 				intent.putExtra("currentMem", currProj);
-				startActivity(intent);
+				startActivity(intent);*/
 				return false;
 			}
 		});
@@ -118,12 +118,14 @@ public class ProjectsList extends ListActivity {
 					pb.setProjectName(object2.get("projectName").toString());
 					pb.setProj_CreatedDate(object2.get("proj_CreatedDate").toString());
 					pb.setTypeOfProject(object2.getString("typeOfProject").toString());
+					pb.setDescription((String) object2.get("description"));
+					pb.setProjCompletionDate((String) object2.get("proj_CompletionDate"));
 					pbl.add(pb);
 					System.out.println(object2.get("project_sl_no"));
 					System.out.println(object2.get("projectName"));
 					System.out.println(object2.get("proj_CreatedDate"));
 					System.out.println(object2.get("description"));
-					Log.d(Config.TAG, "ProjBean "+pb);
+					Log.d(Config.TAG, "ProjBean!!!!!!!!!!!!!! "+pb);
 				}
 				return pbl;
 			//	 Log.d(Config.TAG, "ProjBean ");

@@ -85,6 +85,10 @@
             android:name=".AddTaskOnline"
             android:label="@string/title_activity_add_task_online" >
         </activity>
+        <activity
+            android:name=".EditProject"
+            android:label="@string/title_activity_edit_project" >
+        </activity>
     </application>
 
 </manifest>

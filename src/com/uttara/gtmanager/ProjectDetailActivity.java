@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -42,12 +43,17 @@ public class ProjectDetailActivity extends Activity {
 		Intent intent = getIntent();
 		pb = new ProjectBean();
 		pb = (ProjectBean) intent.getSerializableExtra("currentMem");
-		Log.d(Config.TAG, "ProjectBean "+pb);
+		Log.d(Config.TAG, "ProjectBean)))))))))))))) "+pb);
 		projName.setText(pb.getProjectName().toString());
 		dateOfCreation.setText(pb.getProj_CreatedDate().toString());
 		projectName = pb.getProjectName();
 		lv = (ListView) findViewById(R.id.memberNameListView);
-		
+		pd = new ProgressDialog(this);
+		pd.setTitle("Loading Project details");
+		pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		pd.setMessage("Please wait");
+		pd.setIndeterminate(true);
+		pd.show();
 		new FetchMemberList(projectName).execute();
 		
 		
@@ -65,15 +71,16 @@ public class ProjectDetailActivity extends Activity {
 		startActivity(intent);
 		
 	}
-	private class FetchMemberList extends AsyncTask<String, Void, List<String>>{
+	
+	private class FetchMemberList extends AsyncTask<String, Void, List<RegBean>>{
 		String projName ;
-		List<String> listOfNames = new ArrayList<String>();
+		List<RegBean> listOfNames = new ArrayList<RegBean>();
 		public FetchMemberList(String projectName) {
 			this.projName = projectName;
 		}
 
 		@Override
-		protected List<String> doInBackground(String... params) {
+		protected List<RegBean> doInBackground(String... params) {
 			
 			HttpURLConnection con = null;
 			BufferedReader br = null;
@@ -88,10 +95,27 @@ public class ProjectDetailActivity extends Activity {
 				String response = br.readLine().toString();
 				Log.d("gtmanager","inside do in background after getting response. response = "+response.toString());
 				JSONParser parser = new JSONParser();
-				JSONObject obj = (JSONObject) parser.parse(response);
-				Log.d("gtmanager","inside do in background after getting json object. json object = "+obj.get("listOfNames").toString());
-				listOfNames = (List<String>) obj.get("listOfNames");
-				return listOfNames;
+				JSONObject jObj = (JSONObject) parser.parse(response);
+				Log.d("gtmanager","inside do in background after getting json object. json object = "+jObj.get("listOfNames"));
+				String str =  jObj.get("listOfNames").toString();
+				JSONObject obj1 = (JSONObject) parser.parse(str);
+				Log.d(Config.TAG, "000000000000000000"+obj1.get("beanList"));
+				String str1 = (String)obj1.get("beanList").toString();
+				JSONArray jArray = (JSONArray) parser.parse(str1);
+				List<RegBean> rbList = new ArrayList<RegBean>();
+				for (int i = 0; i < jArray.size(); i++) {
+					RegBean rb = new RegBean();
+					JSONObject obj = (JSONObject) jArray.get(i);
+					rb.setFname((String) obj.get("firstName"));
+					rb.setEmail((String) obj.get("email"));
+					rbList.add(rb);
+				}
+				Log.d(Config.TAG, "rblist........."+rbList);
+				/*List<TaskBean> taskBeans= new ArrayList<TaskBean>();
+				TaskBean taskBean;
+				JSONArray arrayTasks=(JSONArray) parser.parse((String) obj.get("listOfNames"));*/
+				//listOfNames = (List<RegBean>) obj.get("listOfNames");
+				return rbList;
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -110,13 +134,13 @@ public class ProjectDetailActivity extends Activity {
 		}
 		
 		@Override
-		protected void onPostExecute(List<String> result) {
+		protected void onPostExecute(List<RegBean> result) {
 			Log.d(Config.TAG, "result = "+result);
-			List<String> nameList = new ArrayList<String>();
+			List<RegBean> nameList = new ArrayList<RegBean>();
 			
-			
-			for(String str : result){
-				nameList.add(str);
+			List<String> sList = new ArrayList<String>();
+			for(RegBean rb : result){
+				sList.add(rb.getFname().toString());
 			}
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1){
 			    @Override
@@ -127,10 +151,11 @@ public class ProjectDetailActivity extends Activity {
 			        return view;
 			    }
 			};
-			Log.d(Config.TAG, "name list = "+nameList);
-			for(String str1 :nameList){
+			Log.d(Config.TAG, "name list = "+sList);
+			for(String str1 :sList){
 			adapter.add(str1);
 			lv.setAdapter(adapter);
+			pd.dismiss();
 			}
 			super.onPostExecute(result);
 		}

@@ -39,6 +39,9 @@
     <string name="priority_prompt">choose priority</string>
     <string name="memberListForProject_lbl">List of members</string>
     <string name="btnAddAnotherTask">Add another task</string>
+    <string name="projectDescTxtvw">Description</string>
+    <string name="add_btn_lbl1">Update</string>
+    <string name="projComplTxtvw_lbl">Compl.date</string>
 
     <string-array name="priority_arrays">
         <item>0</item>
@@ -73,5 +76,8 @@
     <string name="title_activity_task_detail">Task Detail</string>
     <string name="taskDesctxtvw_lbl">Description</string>
     <string name="title_activity_add_task_online">AddTask</string>
+    <string name="btnEditProject_lbl">Edit project</string>
+    <string name="title_activity_edit_project">Edit Project</string>
+    <string name="btnEditTask_lbl">Update status</string>
 
 </resources>

@@ -15,6 +15,7 @@ import org.json.simple.parser.JSONParser;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -50,6 +51,7 @@ public class AddTask extends Activity {
 	private String projName;
 	boolean b;
 	Intent intent ;
+	private ProgressDialog pdialog;
 	List<MemberBeanParcable> mList = new ArrayList<MemberBeanParcable>();
 	private TextView tv;
 	@Override
@@ -59,13 +61,13 @@ public class AddTask extends Activity {
 		setContentView(R.layout.activity_add_task);
 		
 		
-		tb=new TaskBean();
+		
 		int currYear = c.get(Calendar.YEAR);
 		Log.d(Config.TAG,"current year = "+currYear);
 		dateView = (TextView) findViewById(R.id.dateView);
 		nameView = (EditText) findViewById(R.id.taskName_fld);
 		descView = (TextView) findViewById(R.id.description_fld);
-		
+		pdialog = new ProgressDialog(this);
 		
 		intent = getIntent();
 	
@@ -182,6 +184,7 @@ public class AddTask extends Activity {
 		}
 		};
 		public void submitTask(View v){
+			tb = new TaskBean();
 			tb.setProjectName(projName);
 			tb.setPriority(priority);
 			tb.setTaskName(nameView.getText().toString());
@@ -190,26 +193,33 @@ public class AddTask extends Activity {
 			tb.setTaskCompletionDate(selectedDate);
 			if(tb.validate()==""){
 			Log.d(Config.TAG, "taskBean "+tb);
-			b = intent.getBooleanExtra("forward",false);
 			
-			Intent intent = new Intent();
-			intent.putExtra("taskName", tb.getTaskName());
-			intent.putExtra("taskBean", tb);
-			setResult(2, intent);
-			finish();
-			}else{
-				Toast.makeText(this, tb.validate(), Toast.LENGTH_LONG).show();
+			
+			  Intent intent = new Intent();
+				intent.putExtra("taskName", tb.getTaskName());
+				intent.putExtra("taskBean", tb);
+				setResult(2, intent);
+				finish();
+			//new AddTaskOnline().execute(tb);
+			
 			}
-			}
+		}
 			private class AddTaskOnline extends AsyncTask<TaskBean, Void, JSONObject>{
 			
-			
+			@Override
+				protected void onPreExecute() {
+				 
+					super.onPreExecute();
+				}
 			@Override
 			protected JSONObject doInBackground(TaskBean... params) {
 				HttpURLConnection con = null;
 				BufferedReader br = null;
+				
 				try {
-				String urlStr = new String(Config.CONFIG+"/getJsonaddTaskForProjects?projectName="+tb.getProjectName()+"&taskName="+tb.getTaskName()+"&taskDesc="+tb.getTaskDesc()+"&priority="+tb.getPriority()+"&completionDate="+tb.getTaskCompletionDate()+"&employeeEmail"+tb.getEmployeeEmail());
+					
+					Log.d(Config.TAG,"Taskbean!!!!!!!!!!------"+tb);
+				String urlStr = new String(Config.CONFIG+"/getJsonaddTaskForProjects?projectName="+tb.getProjectName()+"&taskName="+tb.getTaskName()+"&taskDesc="+tb.getTaskDesc()+"&priority="+tb.getPriority()+"&completionDate="+tb.getTaskCompletionDate()+"&employeeEmail="+tb.getEmployeeEmail());
 				
 					URL url = new URL(urlStr);
 					con = (HttpURLConnection) url.openConnection();
@@ -249,8 +259,11 @@ public class AddTask extends Activity {
 						Toast.makeText(getApplicationContext(),"Addded Task Successfully", Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent();
 						intent.putExtra("taskName", tb.getTaskName());
+						intent.putExtra("taskBean", tb);
 						setResult(2, intent);
 						finish();
+						pdialog.dismiss();
+						
 					}
 					else{
 						Toast.makeText(getApplicationContext(), status, Toast.LENGTH_SHORT).show();

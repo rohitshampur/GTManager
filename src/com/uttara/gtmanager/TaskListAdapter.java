@@ -3,6 +3,7 @@ package com.uttara.gtmanager;
 import java.util.List;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,13 @@ import android.widget.TextView;
 public class TaskListAdapter extends ArrayAdapter {
 	private Activity activity;
 	private List<TaskBean> tbl;
+	
 	@SuppressWarnings("unchecked")
 	public TaskListAdapter(Activity activity, List<TaskBean> tbl) {
 		super(activity,android.R.id.list, tbl);
 		this.activity = activity;
 		this.tbl = tbl;
+		Log.d(Config.TAG, "Data present "+tbl);
 	}
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -35,7 +38,7 @@ public class TaskListAdapter extends ArrayAdapter {
 			mv = (TaskListView) rowView.getTag();
 		}
 		TaskBean tb =tbl.get(position);
-		//mv.taskName.setText(tb.getTaskName().toString());
+		mv.taskName.setText(tb.getTaskName().toString());
 		mv.status.setText(tb.getStatus().toString());
 		
 		
