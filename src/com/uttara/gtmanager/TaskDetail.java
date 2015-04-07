@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class TaskDetail extends Activity {
 	private TextView projName;
 	private TextView status;
 	private TaskBean tb;
+	private Button updateButton;
 	private String projectName = null; 
 	ProgressDialog pd;
 
@@ -38,8 +40,13 @@ public class TaskDetail extends Activity {
 		projName = (TextView) findViewById(R.id.tv8);
 		taskDate = (TextView) findViewById(R.id.tv9);
 		status = (TextView) findViewById(R.id.tv10);
+		updateButton = (Button) findViewById(R.id.btnEditTask);
 		Intent intent = getIntent();
 		projectName = intent.getStringExtra("projectName");
+		boolean b = intent.getBooleanExtra("fromtTaskList", false);
+		if(b){
+			updateButton.setVisibility(View.GONE);
+		}
 		tb = new TaskBean();
 		tb = (TaskBean) intent.getSerializableExtra("currentTask");
 		taskName.setText(tb.getTaskName());

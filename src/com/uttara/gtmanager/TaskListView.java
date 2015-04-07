@@ -11,7 +11,6 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import android.app.Activity;
 import android.app.ListActivity;
@@ -34,6 +33,7 @@ public class TaskListView extends ListActivity {
 		setContentView(R.layout.activity_task_list_view);
 		Intent intent = getIntent();
 		projectName = intent.getStringExtra("projectName");
+		
 		taskBeans= new ArrayList<TaskBean>();
 		new FetchTaskOnline().execute();
 	}
@@ -44,9 +44,10 @@ public class TaskListView extends ListActivity {
 		Intent intent = new Intent(this, TaskDetail.class);
 		intent.putExtra("currentTask", currTask);
 		intent.putExtra("projectName",projectName);
+		intent.putExtra("fromtTaskList", true);
 		startActivity(intent);
 		super.onListItemClick(l, v, position, id);
-		super.onListItemClick(l, v, position, id);
+		
 	}
 	private class FetchTaskOnline extends AsyncTask<Void, Void, List<TaskBean>>{
 
