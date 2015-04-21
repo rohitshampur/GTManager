@@ -249,6 +249,7 @@ public class ProjectBean implements Serializable {
 		return true;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public String getJsonString1()
 	{
 		
@@ -260,6 +261,7 @@ public class ProjectBean implements Serializable {
 		object.put("typeOfProject", this.typeOfProject);
 		return object.toString();
 	}
+	@SuppressWarnings("unchecked")
 	public String getJsonString()
 	{
 		
