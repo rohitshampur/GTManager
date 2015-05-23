@@ -8,14 +8,14 @@ import android.net.NetworkInfo;
 public class Config {
 	
 	
-	public static final String CONFIG = "http://192.168.1.3:8080/GroupBasedTaskManager";
+	public static final String CONFIG = "http://192.168.42.180:8080/GroupBasedTaskManager";
 	public static final String SUCCESS = "Success";
 	public static final String TAG = "gtmanager";
 	public static final String ROLE_MANAGER = "Manager";
 	public static final String ROLE_EMPL = "Emp";
 	public static int DOWNLOAD_DIALOG_PROGRESS = 0;
 	
-	private boolean checkInternet(Context c) {
+	public static boolean checkInternet(Context c) {
 	    boolean haveConnectedWifi = false;
 	    boolean haveConnectedMobile = false;
 
