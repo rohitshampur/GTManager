@@ -20,16 +20,22 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -87,6 +93,44 @@ public class AddProject extends Activity {
 		 * button2 = (Button) findViewById(R.id.btnAddAnotherTask);
 		 * button2.setVisibility(View.GONE);
 		 */
+		taskNameSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddProject.this);
+		   		alertDialogBuilder
+		   		.setTitle("Edit task")
+		   		.setMessage("Do you want to edit this task ?")
+		   		.setCancelable(false)
+		   		.setPositiveButton("OK", new OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						
+						
+					}
+				}).setNegativeButton("Cancel", new OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						
+						
+					}
+				});
+		   		AlertDialog alertDialog = alertDialogBuilder.create();
+		   		alertDialog.show();
+		   		
+		   	
+				
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		tblist = new ArrayList<TaskBean>();
 		dataAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item);

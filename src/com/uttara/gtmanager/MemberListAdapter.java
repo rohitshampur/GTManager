@@ -6,12 +6,15 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 public class MemberListAdapter extends ArrayAdapter {
 	private Activity activity;
 	private List<MemberBean> mbl;
+	private int lastPosition = -1;
 	@SuppressWarnings("unchecked")
 	public MemberListAdapter(Activity activity, List<MemberBean> mbl) {
 		super(activity,android.R.id.list, mbl);
@@ -37,7 +40,8 @@ public class MemberListAdapter extends ArrayAdapter {
 		MemberBean pb =mbl.get(position);
 		mv.name.setText(pb.getName().toString());
 		mv.email.setText(pb.getEmail().toString());
-		
+		Animation animation = AnimationUtils.loadAnimation(activity	,(position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+		rowView.startAnimation(animation);
 		
 		return rowView;
 	}

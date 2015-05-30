@@ -1,57 +1,80 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+<LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:fillViewport="true" >
+    android:fillViewport="true"
+    android:orientation="vertical" >
+    
+    
+    <EditText
+            android:id="@+id/taskName_fld"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/hint_taskname_fld" />
 
         <EditText
             android:id="@+id/description_fld"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/taskName_fld"
             android:layout_marginTop="18dp"
             android:ems="10"
             android:hint="@string/hint_taskDescription_fld" />
+        
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+            android:id="@+id/dateView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/dateView_lbl"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <Button
             android:id="@+id/btnpickDate"
-            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/dateView"
-            android:layout_alignBottom="@+id/dateView"
-            android:layout_alignRight="@+id/description_fld"
             android:onClick="pickDate"
             android:text="@string/btnpickDate_lbl" />
-
+		</LinearLayout>
+		
+        
+         <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+        
         <TextView
             android:id="@+id/setPriority_txtvw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/prioritySpinner1"
-            android:layout_alignLeft="@+id/dateView"
             android:text="@string/setPrioritytxtvw_lbl"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+        <Spinner
+            android:id="@+id/prioritySpinner1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/priority_arrays"
+            android:prompt="@string/priority_prompt" />
+        </LinearLayout>
+        
 
         <TextView
             android:id="@+id/selectMember_txtvw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/setPriority_txtvw"
-            android:layout_below="@+id/prioritySpinner1"
             android:layout_marginTop="24dp"
             android:text="@string/selectMember_txtvw_lbl"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <EditText
-            android:id="@+id/taskName_fld"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:ems="10"
-            android:hint="@string/hint_taskname_fld" />
+        
 
         <Spinner
             android:id="@+id/spinner1"
@@ -75,40 +98,25 @@
             android:id="@+id/selectedMemberForTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/selectedMembers"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="14dp"
            
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Button
+        
+        <LinearLayout android:layout_width="match_parent"
+		    android:layout_height="0dip"
+		    android:layout_marginTop="30dp"
+		    android:orientation="vertical"
+		    android:layout_weight="1"	
+		    android:layout_gravity="center|bottom">
+		    <Button
             android:id="@+id/btn_submit"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/selectedMemberForTask"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="14dp"
             android:text="@string/btnSubmit_lbl" 
             android:onClick="submitTask"/>
+		</LinearLayout>
+</LinearLayout>
 
-        <TextView
-            android:id="@+id/dateView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/description_fld"
-            android:layout_marginTop="16dp"
-            android:layout_toLeftOf="@+id/selectedMemberForTask"
-            android:text="@string/dateView_lbl"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <Spinner
-            android:id="@+id/prioritySpinner1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/selectMember_txtvw"
-            android:layout_below="@+id/btnpickDate"
-            android:layout_toRightOf="@+id/selectedMemberForTask"
-            android:entries="@array/priority_arrays"
-            android:prompt="@string/priority_prompt" />
-
-</RelativeLayout>
+</ScrollView>

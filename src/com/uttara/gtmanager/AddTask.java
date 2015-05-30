@@ -21,6 +21,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.DatePicker;
@@ -54,6 +55,7 @@ public class AddTask extends Activity {
 	private ProgressDialog pdialog;
 	List<MemberBeanParcable> mList = new ArrayList<MemberBeanParcable>();
 	private TextView tv;
+	boolean stat = false;
 	@Override
 	
 	protected void onCreate(Bundle savedInstanceState) {
@@ -188,38 +190,48 @@ public class AddTask extends Activity {
 			tb.setProjectName(projName);
 			tb.setPriority(priority);
 			tb.setTaskName(nameView.getText().toString());
+			nameView.setOnFocusChangeListener(new OnFocusChangeListener() {
+				
+				@Override
+				public void onFocusChange(View v, boolean hasFocus) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
 			tb.setTaskDesc(descView.getText().toString());
 			tb.setEmployeeEmail(memberEmail);
 			tb.setTaskCompletionDate(selectedDate);
 			if(tb.validate()==""){
 			Log.d(Config.TAG, "taskBean "+tb);
 			
+			new CheckTaskName().execute();
 			
-			  Intent intent = new Intent();
-				intent.putExtra("taskName", tb.getTaskName());
-				intent.putExtra("taskBean", tb);
-				setResult(2, intent);
-				finish();
+			  
 			//new AddTaskOnline().execute(tb);
 			
 			}
 		}
-			private class AddTaskOnline extends AsyncTask<TaskBean, Void, JSONObject>{
+			private class CheckTaskName extends AsyncTask<Void, Void, JSONObject>{
 			
 			@Override
 				protected void onPreExecute() {
-				 
+				pdialog = new ProgressDialog(AddTask.this);
+				pdialog.setTitle("Checking project name");
+				pdialog.setMessage("Loading...");
+				pdialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+				pdialog.show();
 					super.onPreExecute();
 				}
 			@Override
-			protected JSONObject doInBackground(TaskBean... params) {
+			protected JSONObject doInBackground(Void... params) {
 				HttpURLConnection con = null;
 				BufferedReader br = null;
+				
 				
 				try {
 					
 					Log.d(Config.TAG,"Taskbean!!!!!!!!!!------"+tb);
-				String urlStr = new String(Config.CONFIG+"/getJsonaddTaskForProjects?projectName="+tb.getProjectName()+"&taskName="+tb.getTaskName()+"&taskDesc="+tb.getTaskDesc()+"&priority="+tb.getPriority()+"&completionDate="+tb.getTaskCompletionDate()+"&employeeEmail="+tb.getEmployeeEmail());
+				String urlStr = new String(Config.CONFIG+"/checkTaskName?taskName="+tb.getTaskName());
 				
 					URL url = new URL(urlStr);
 					con = (HttpURLConnection) url.openConnection();
@@ -229,7 +241,7 @@ public class AddTask extends Activity {
 					Log.d("gtmanager","inside do in background after getting response. response = "+response.toString());
 					JSONParser parser = new JSONParser();
 					JSONObject obj = (JSONObject) parser.parse(response);
-					Log.d("gtmanager","inside do in background after getting json object. json object = "+obj.get("Status").toString());
+					Log.d("gtmanager","inside do in background after getting json object. json object = "+obj.get("status").toString());
 					return obj;
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -253,20 +265,29 @@ public class AddTask extends Activity {
 			@Override
 			protected void onPostExecute(JSONObject result) {
 				if(result != null){
-					String status = result.get("Status").toString();
+					String status = result.get("status").toString();
 					System.out.println(status);
 					if(status.equals(Config.SUCCESS)){
-						Toast.makeText(getApplicationContext(),"Addded Task Successfully", Toast.LENGTH_SHORT).show();
+						/*Toast.makeText(getApplicationContext(),"Addded Task Successfully", Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent();
 						intent.putExtra("taskName", tb.getTaskName());
 						intent.putExtra("taskBean", tb);
 						setResult(2, intent);
 						finish();
+						pdialog.dismiss();*/
 						pdialog.dismiss();
+						Intent intent = new Intent();
+						intent.putExtra("taskName", tb.getTaskName());
+						intent.putExtra("taskBean", tb);
+						setResult(2, intent);
+						finish();
+						
 						
 					}
 					else{
-						Toast.makeText(getApplicationContext(), status, Toast.LENGTH_SHORT).show();
+				
+						pdialog.dismiss();
+						Toast.makeText(getApplicationContext(),"Task name already exists", Toast.LENGTH_SHORT).show();
 					}
 					super.onPostExecute(result);
 				}

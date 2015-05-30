@@ -6,12 +6,15 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 public class ProjectListAdapter extends ArrayAdapter{
 	private Activity activity;
 	private List<ProjectBean> pbl;
+	private int lastPosition = -1;
 	@SuppressWarnings("unchecked")
 	public ProjectListAdapter(Activity activity , List<ProjectBean> pb){
 		super(activity,android.R.id.list,pb);
@@ -39,6 +42,8 @@ public class ProjectListAdapter extends ArrayAdapter{
 		pv.projectDate.setText(pb.getProj_CreatedDate().toString());
 		pv.projectType.setText(pb.getTypeOfProject().toString());
 		
+		Animation animation = AnimationUtils.loadAnimation(activity	,(position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+		rowView.startAnimation(animation);
 		return rowView;
 	}
 	protected static class ProjectListView{

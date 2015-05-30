@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,107 +8,90 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.uttara.gtmanager.AddProject" >
  
-    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <EditText
         android:id="@+id/projectName_fld"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        
-        android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="@string/hint_projectName_fld" />
-
-    <Button
-        android:id="@+id/btnChooseMem"
+    
+    <LinearLayout 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/description_fld"
-        android:layout_alignRight="@id/projectName_fld"
-        android:layout_below="@+id/dateView"
-        android:layout_marginTop="16dp"
-        android:onClick="chooseMember"
-        android:text="@string/btnChooseMem_lbl" />
-
- 
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
     <TextView
         android:id="@+id/dateView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/projectName_fld"
-        android:layout_below="@id/projectName_fld"
         android:layout_marginTop="15dp"
        	android:text="@string/dateView_lbl"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+    <Button
+        android:id="@+id/btnpickDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="@string/btnpickDate_lbl" 
+        android:onClick="showDate"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnChooseMem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="chooseMember"
+        android:text="@string/btnChooseMem_lbl" />
+	 <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+      />
+    
+  
 
     <Button
         android:id="@+id/btnAddTask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/spinner1"
-        android:layout_alignRight="@id/btnChooseMem"
-        android:layout_below="@id/spinner1"
         android:onClick="addTask"
         android:text="@string/btnAddTask_lbl" />
-
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/btnChooseMem"
-        android:layout_alignRight="@id/btnChooseMem"
-        android:layout_below="@id/btnChooseMem" />
-
-    <EditText
-        android:id="@+id/typeOfPro_fld"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/description_fld"
-        android:layout_above="@+id/add_btn"
-        android:layout_marginBottom="17dp"
-        android:ems="10"
-        android:hint="@string/hint_typeOfProj_fld" />
-
+    
     <Spinner
         android:id="@+id/spinner2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/btnAddTask"
-        android:layout_alignRight="@id/btnAddTask"
-         android:layout_above="@id/description_fld"
         android:layout_marginBottom="17dp"
          />
 
-    <Button
-        android:id="@+id/btnpickDate"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+   
+    <EditText
+        android:id="@+id/typeOfPro_fld"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/dateView"
-        android:layout_alignBottom="@+id/dateView"
-        android:layout_alignRight="@+id/projectName_fld"
-        android:layout_marginRight="38dp"
-        android:text="@string/btnpickDate_lbl" 
-        android:onClick="showDate"/>
+        android:ems="10"
+        android:hint="@string/hint_typeOfProj_fld" />
 
+  	 <EditText
+        android:id="@+id/description_fld"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/hint_description_fld" />
+    
     <Button
         android:id="@+id/add_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/typeOfPro_fld"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="17dp"
+        android:layout_marginTop="40dp"
         android:onClick="addProject"
         android:text="@string/add_btn_lbl" />
-
-    <EditText
-        android:id="@+id/description_fld"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/typeOfPro_fld"
-        android:layout_alignLeft="@+id/dateView"
-        android:ems="10"
-        android:hint="@string/hint_description_fld" />
-    
-</RelativeLayout>
+    </LinearLayout>
+</ScrollView>

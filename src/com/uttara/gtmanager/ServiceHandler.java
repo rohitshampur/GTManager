@@ -17,7 +17,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
-import android.R.string;
 import android.util.Log;
 
 public class ServiceHandler

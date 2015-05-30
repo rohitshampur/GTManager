@@ -6,12 +6,15 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 public class ChooseMemberListAdapter extends ArrayAdapter {
 	private Activity activity;
 	private List<MemberBeanParcable> mbl;
+	private int lastPosition = -1;
 	@SuppressWarnings("unchecked")
 	public ChooseMemberListAdapter(Activity activity, List<MemberBeanParcable> mbl2) {
 		super(activity,android.R.id.list, mbl2);
@@ -37,7 +40,8 @@ public class ChooseMemberListAdapter extends ArrayAdapter {
 		MemberBeanParcable pb =mbl.get(position);
 		mv.name.setText(pb.getName().toString());
 		mv.email.setText(pb.getEmail().toString());
-		
+		Animation animation = AnimationUtils.loadAnimation(activity	,(position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+		rowView.startAnimation(animation);
 		
 		return rowView;
 	}

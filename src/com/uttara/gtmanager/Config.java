@@ -1,5 +1,6 @@
 package com.uttara.gtmanager;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -8,7 +9,7 @@ import android.net.NetworkInfo;
 public class Config {
 	
 	
-	public static final String CONFIG = "http://192.168.42.180:8080/GroupBasedTaskManager";
+	public static final String CONFIG = "http://10.10.10.26:8080/GroupBasedTaskManager";
 	public static final String SUCCESS = "Success";
 	public static final String TAG = "gtmanager";
 	public static final String ROLE_MANAGER = "Manager";
@@ -31,4 +32,21 @@ public class Config {
 	    }
 	    return haveConnectedWifi || haveConnectedMobile;
 	}
+	
+	   public  void showStatusDialog(String title, String message, String posButtonText,Context context)
+   	{
+   		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+   		
+   		alertDialogBuilder
+   		.setTitle(title)
+   		.setMessage(message)
+   		.setCancelable(false)
+   		.setPositiveButton(posButtonText, null);
+   		AlertDialog alertDialog = alertDialogBuilder.create();
+   		alertDialog.show();
+   	
+   	}
+	
+	
+	
 }
