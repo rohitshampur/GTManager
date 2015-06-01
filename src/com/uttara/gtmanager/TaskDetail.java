@@ -81,7 +81,7 @@ public class TaskDetail extends Activity {
 				// (null for none),
 				// and the listener through which to receive callbacks when
 				// items are selected
-				.setSingleChoiceItems(arr, 1,
+				.setSingleChoiceItems(arr, 0,
 						new DialogInterface.OnClickListener() {
 
 							@Override
@@ -109,14 +109,19 @@ public class TaskDetail extends Activity {
 					public void onClick(DialogInterface dialog, int id) {
 						Log.d(Config.TAG,
 								"insdie onclick dialog interface which pos okay button"
-										+ id);
+										+ id+"STR! = "+str1);
 						if(id==-1){
+							if(str1.size()>0){
 						String str = str1.get(0);
+							
 						Log.d(Config.TAG, "@@@@@@@@@@@@@@"+str);
 						new UpdateStatus(str).execute();
-						}else{
-							String str = "Pending";
-							new UpdateStatus(str).execute();
+							}else{
+								String str = "Completed";
+								
+								Log.d(Config.TAG, "@@@@@@@@@@@@@@"+str);
+								new UpdateStatus(str).execute();
+							}
 						}
 					}
 				})

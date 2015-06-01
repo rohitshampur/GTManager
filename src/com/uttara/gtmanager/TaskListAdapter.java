@@ -29,8 +29,8 @@ public class TaskListAdapter extends ArrayAdapter {
 			LayoutInflater inflater = activity.getLayoutInflater();
 			rowView = inflater.inflate(R.layout.row_task_list, null);
 			mv = new TaskListView();
-			mv.taskName = (TextView) rowView.findViewById(R.id.taskNameInsert);
-			mv.status = (TextView) rowView.findViewById(R.id.statusInsert);
+			mv.taskName = (TextView) rowView.findViewById(R.id.taskNameTxtvw);
+			mv.status = (TextView) rowView.findViewById(R.id.statusTxtvw);
 			
 			
 			rowView.setTag(mv);
@@ -38,8 +38,8 @@ public class TaskListAdapter extends ArrayAdapter {
 			mv = (TaskListView) rowView.getTag();
 		}
 		TaskBean tb =tbl.get(position);
-		mv.taskName.setText(tb.getTaskName().toString());
-		mv.status.setText(tb.getStatus().toString());
+		mv.taskName.setText("Name : "+tb.getTaskName().toString());
+		mv.status.setText("Status : "+tb.getStatus().toString());
 		
 		
 		return rowView;

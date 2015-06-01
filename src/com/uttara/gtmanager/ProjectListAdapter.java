@@ -30,17 +30,17 @@ public class ProjectListAdapter extends ArrayAdapter{
 			LayoutInflater inflater = activity.getLayoutInflater();
 			rowView = inflater.inflate(R.layout.row_project_list, null);
 			pv = new ProjectListView();
-			pv.projectName = (TextView) rowView.findViewById(R.id.textView4);
-			pv.projectDate = (TextView) rowView.findViewById(R.id.textView5);
-			pv.projectType = (TextView) rowView.findViewById(R.id.textView6);
+			pv.projectName = (TextView) rowView.findViewById(R.id.project_name_txtvw);
+			pv.projectDate = (TextView) rowView.findViewById(R.id.project_date_txtvw);
+			pv.projectType = (TextView) rowView.findViewById(R.id.project_type_txtvw);
 			rowView.setTag(pv);
 		}else{
 			pv = (ProjectListView) rowView.getTag();
 		}
 		ProjectBean pb =pbl.get(position);
-		pv.projectName.setText(pb.getProjectName().toString());
-		pv.projectDate.setText(pb.getProj_CreatedDate().toString());
-		pv.projectType.setText(pb.getTypeOfProject().toString());
+		pv.projectName.setText("Project : "+pb.getProjectName().toString());
+		pv.projectDate.setText("Date : "+pb.getProj_CreatedDate().toString());
+		pv.projectType.setText("Type : "+pb.getTypeOfProject().toString());
 		
 		Animation animation = AnimationUtils.loadAnimation(activity	,(position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
 		rowView.startAnimation(animation);

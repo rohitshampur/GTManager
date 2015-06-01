@@ -31,7 +31,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -93,44 +92,8 @@ public class AddProject extends Activity {
 		 * button2 = (Button) findViewById(R.id.btnAddAnotherTask);
 		 * button2.setVisibility(View.GONE);
 		 */
-		taskNameSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddProject.this);
-		   		alertDialogBuilder
-		   		.setTitle("Edit task")
-		   		.setMessage("Do you want to edit this task ?")
-		   		.setCancelable(false)
-		   		.setPositiveButton("OK", new OnClickListener() {
-					
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						
-						
-					}
-				}).setNegativeButton("Cancel", new OnClickListener() {
-					
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						
-						
-					}
-				});
-		   		AlertDialog alertDialog = alertDialogBuilder.create();
-		   		alertDialog.show();
-		   		
-		   	
-				
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		
+		
 		tblist = new ArrayList<TaskBean>();
 		dataAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item);
@@ -188,6 +151,7 @@ public class AddProject extends Activity {
 			int currYear = c.get(Calendar.YEAR);
 			int currMonth = c.get(Calendar.MONTH);
 			int currDay = c.get(Calendar.DATE);
+			
 			/*
 			 * if(year < currYear){ Toast.makeText(getApplicationContext(),
 			 * "Please select the future date", Toast.LENGTH_LONG).show();
@@ -198,8 +162,21 @@ public class AddProject extends Activity {
 			 * dateView.setText(day+"-"+month+"-"+year); selectedDate =
 			 * ""+day+"-"+month+"-"+year; // set selected date into textview } }
 			 */
-			dateView.setText(day + "-" + month + "-" + year);
-			selectedDate = "" + day + "-" + month + "-" + year;
+			String date;
+			if(day<10||month<10){
+				date = "0"+day + "/0" + month + "/" + year;
+			}else{
+			date = day + "/" + month + "/" + year;
+			}
+			Log.d(Config.TAG, "Date = "+date);
+			if(Config.DateChecker(date).equals(Config.SUCCESS)){
+			dateView.setText("Selected date : "+date);
+			dateView.setError(null);
+			selectedDate = date;
+			}else{
+				dateView.setError("Invalid date ");
+				Toast.makeText(getApplicationContext(), "Inavlid date", Toast.LENGTH_LONG).show();
+			}
 
 		}
 	};
@@ -290,6 +267,50 @@ public class AddProject extends Activity {
 				adapter.addAll(str1);
 				taskNameSpinner.setVisibility(View.VISIBLE);
 				taskNameSpinner.setAdapter(adapter);
+				taskNameSpinner.setSelection(0,false);
+				taskNameSpinner.post(new Runnable() {
+					public void run() {
+						taskNameSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+							@Override
+							public void onItemSelected(AdapterView<?> parent, View view,
+									int position, long id) {
+								Log.d(Config.TAG, "ID = "+id+"item "+parent.getItemAtPosition(position));
+								AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddProject.this);
+						   		alertDialogBuilder
+						   		.setTitle("Edit task")
+						   		.setMessage("Do you want to edit this task ?")
+						   		.setCancelable(false)
+						   		.setPositiveButton("OK", new OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										
+										
+									}
+								}).setNegativeButton("Cancel", new OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										
+										
+									}
+								});
+						   		AlertDialog alertDialog = alertDialogBuilder.create();
+						   		alertDialog.show();
+						   		
+						   	
+								
+							}
+
+							@Override
+							public void onNothingSelected(AdapterView<?> parent) {
+								// TODO Auto-generated method stub
+								
+							}
+						});
+					}
+				});
 				adapter.notifyDataSetChanged();
 				tb = new TaskBean();
 				tb = (TaskBean) data.getSerializableExtra("taskBean");

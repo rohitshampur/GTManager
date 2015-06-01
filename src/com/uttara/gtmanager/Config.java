@@ -1,9 +1,13 @@
 package com.uttara.gtmanager;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 
 public class Config {
@@ -46,6 +50,38 @@ public class Config {
    		alertDialog.show();
    	
    	}
+	   
+	   public static String DateChecker(String date) {
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			String presentDate = format.format(new Date()).toString();
+			Date d1 = null;
+			Date d2 = null;
+			try {
+				d1 = format.parse(date);
+				d2 = format.parse(presentDate);
+				// in milliseconds
+
+				long diff = d2.getTime() - d1.getTime();
+
+				long diffDays = diff / (24 * 60 * 60 * 1000);
+				System.out.print(diffDays + " Days");
+				Log.d(TAG, "diff dates"+diffDays);
+				// 100 years = 36,467 Days
+
+				int day = (int) diffDays;
+				if (day <=0) {
+					return "Success";
+					
+				} else {
+					return " Date is accepted upto this date only";
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e.getMessage());
+				return " Dear user Kindly provide Date in this format : DD-MM-YYYY";
+			}
+		}
 	
 	
 	

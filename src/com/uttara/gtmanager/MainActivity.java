@@ -45,6 +45,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		ed_email = (EditText) findViewById(R.id.email_fld);
 		ed_email.requestFocus();
+		
 	}
 	
 public void login(View v){
@@ -189,7 +190,7 @@ private class OnlineLogin extends AsyncTask<LogBean, Void, JSONObject>{
 			System.out.println("result of get"+res);
 			Log.d("gtmanager", "result from Login "+result.get("status").toString());
 			// check if the role is manager or employee and show the menu respectively
-			
+			pDialog.dismiss();
 				
 				if(res.equals(Config.SUCCESS)){
 				Toast.makeText(getApplicationContext(),"Login Successfull!",Toast.LENGTH_SHORT).show();

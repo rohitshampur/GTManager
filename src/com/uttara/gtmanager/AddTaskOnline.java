@@ -157,14 +157,20 @@ public class AddTaskOnline extends Activity {
 		cMonth = selectedMonth;
 		cDay = selectedDay;
 		cMonth++;
-		if(selectedYear<cYear){
-			Toast.makeText(getApplicationContext(), "Please select the future date", Toast.LENGTH_LONG).show();;
+		String date;
+		if(cDay<10||cMonth<10){
+			date = "0"+cDay + "/0" + cMonth + "/" + cYear;
 		}else{
-		//Log.d(Config.TAG , "date "+cMonth+" "+cDay+" "+cYear);	
-		
-		dateView.setText(cDay+"-"+cMonth+"-"+cYear);
-		selectedDate = ""+cDay+"-"+cMonth+"-"+cYear;
-		// set selected date into textview
+		date = cDay + "/" + cMonth + "/" + cYear;
+		}
+		Log.d(Config.TAG, "Date = "+date);
+		if(Config.DateChecker(date).equals(Config.SUCCESS)){
+		dateView.setText("Selected date : "+date);
+		dateView.setError(null);
+		selectedDate = date;
+		}else{
+			dateView.setError("Invalid date ");
+			Toast.makeText(getApplicationContext(), "Inavlid date", Toast.LENGTH_LONG).show();
 		}
 		
 			
