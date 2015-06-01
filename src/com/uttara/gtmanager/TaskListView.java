@@ -57,6 +57,7 @@ public class TaskListView extends ListActivity {
 			HttpURLConnection con = null;
 			BufferedReader br = null;
 			try{
+				projectName = projectName.replaceAll(" ", "%40");
 				String urlStr = new String(Config.CONFIG+"/getJsonlistTask?projectName="+projectName);
 				URL url = new URL(urlStr); 
 				con = (HttpURLConnection) url.openConnection();

@@ -9,7 +9,7 @@ import android.net.NetworkInfo;
 public class Config {
 	
 	
-	public static final String CONFIG = "http://10.10.10.26:8080/GroupBasedTaskManager";
+	public static final String CONFIG = "http://192.168.153.107:8090/GroupBasedTaskManager";
 	public static final String SUCCESS = "Success";
 	public static final String TAG = "gtmanager";
 	public static final String ROLE_MANAGER = "Manager";

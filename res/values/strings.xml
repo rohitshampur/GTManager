@@ -79,5 +79,6 @@
     <string name="btnEditProject_lbl">Edit project</string>
     <string name="title_activity_edit_project">Edit Project</string>
     <string name="btnEditTask_lbl">Update status</string>
+    <string name="heading_dismissable_list_view">List View</string>
 
 </resources>

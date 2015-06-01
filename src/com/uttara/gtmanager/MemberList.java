@@ -8,8 +8,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.android.swipedismiss.SwipeDismissListViewTouchListener;
-
 import android.app.Activity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -133,27 +131,6 @@ public class MemberList extends ListActivity {
 				setListAdapter(listMemberAdapter);
 				Toast.makeText(getApplicationContext(), "Loaded Member list ", Toast.LENGTH_LONG).show();
 				pd.dismiss();
-				ListView lv = getListView();
-				SwipeDismissListViewTouchListener touchListner = new SwipeDismissListViewTouchListener(lv, new SwipeDismissListViewTouchListener.DismissCallbacks() {
-					
-					@Override
-					public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-						for (int position : reverseSortedPositions) {
-                            listMemberAdapter.remove(listMemberAdapter.getItem(position));
-                            
-                        }
-						listMemberAdapter.notifyDataSetChanged();
-                    
-						
-					}
-					
-					@Override
-					public boolean canDismiss(int position) {
-						// TODO Auto-generated method stub
-						return true;
-					}
-				});
-				lv.setOnTouchListener(touchListner);
 				
 			
 			}else

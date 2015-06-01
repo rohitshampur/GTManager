@@ -35,25 +35,28 @@ public class TaskDetail extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_task_detail);
-		taskName = (TextView) findViewById(R.id.tv6);
-		taskDes = (TextView) findViewById(R.id.tv7);
-		projName = (TextView) findViewById(R.id.tv8);
-		taskDate = (TextView) findViewById(R.id.tv9);
-		status = (TextView) findViewById(R.id.tv10);
+		taskName = (TextView) findViewById(R.id.taskNameTxtvw);
+		taskDes = (TextView) findViewById(R.id.taskDesctxtvw);
+		projName = (TextView) findViewById(R.id.project_name_txtvw);
+		taskDate = (TextView) findViewById(R.id.project_date_txtvw);
+		status = (TextView) findViewById(R.id.statusTxtvw);
 		updateButton = (Button) findViewById(R.id.btnEditTask);
 		Intent intent = getIntent();
 		projectName = intent.getStringExtra("projectName");
+		if(projectName.contains("")){
+		projectName = projectName.replaceAll("%40", " ");
+		}
 		boolean b = intent.getBooleanExtra("fromtTaskList", false);
 		if(b){
 			updateButton.setVisibility(View.GONE);
 		}
 		tb = new TaskBean();
 		tb = (TaskBean) intent.getSerializableExtra("currentTask");
-		taskName.setText(tb.getTaskName());
-		taskDes.setText(tb.getTaskDesc());
-		projName.setText(projectName);
-		taskDate.setText(tb.getTaskCreatedDate());
-		status.setText(tb.getStatus());
+		taskName.setText("Task name : "+tb.getTaskName());
+		taskDes.setText("Description : "+tb.getTaskDesc());
+		projName.setText("Project name : "+projectName);
+		taskDate.setText("Task Date : "+tb.getTaskCreatedDate());
+		status.setText("Status : "+tb.getStatus());
 		pd = new ProgressDialog(this);
 	}
 

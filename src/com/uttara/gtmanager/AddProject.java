@@ -311,6 +311,7 @@ public class AddProject extends Activity {
 		intent.putParcelableArrayListExtra("MemberBeanList",
 				(ArrayList<? extends Parcelable>) MemberList);
 		projectName = projName.getText().toString();
+		projectName = projectName.replaceAll(" ", "%40");
 		intent.putExtra("projName", projName.getText().toString());
 		if (projectName == null || projectName.trim().equals("")) {
 			button1.setVisibility(View.VISIBLE);
@@ -318,9 +319,13 @@ public class AddProject extends Activity {
 					"Please enter project details first", Toast.LENGTH_LONG)
 					.show();
 
-		} else {
-
+		} else if(MemberList.size()<=0) {
+			Toast.makeText(getApplicationContext(),
+					"Please select atleast one member for the task", Toast.LENGTH_LONG)
+					.show();
+		}else{
 			new CheckForProjectName(intent).execute();
+			
 
 		}
 
@@ -434,7 +439,11 @@ public class AddProject extends Activity {
 		if (pb.validate() == "") {
 
 			Log.d(Config.TAG, "add project task bean list  @@@" + tblist);
+			if(tblist.size()<=0||MemberList.size()<=0){
+				Toast.makeText(getApplicationContext(), "Please add atleast one task for the project", Toast.LENGTH_LONG).show();
+			}else{
 			new OnlineAddProject(tblist, MemberList).execute(pb);
+			}
 		} else {
 			Toast.makeText(getApplicationContext(), pb.validate(),
 					Toast.LENGTH_LONG).show();

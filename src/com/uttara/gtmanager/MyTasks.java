@@ -23,15 +23,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 public class MyTasks extends ListActivity {
 	private String email;
-	private ArrayAdapter<?> listTaskAdapter;
+	private ArrayAdapter listTaskAdapter;
 	ListView lv;
 	private ProgressDialog pd;
 
@@ -44,7 +42,7 @@ public class MyTasks extends ListActivity {
 		Intent intent = getIntent();
 		email = intent.getStringExtra("email");
 		new FetchMyTasks().execute();
-		lv = (ListView) findViewById(android.R.id.list);
+		/*lv = (ListView) findViewById(android.R.id.list);
 
 		lv.setOnItemLongClickListener(new OnItemLongClickListener() {
 
@@ -56,20 +54,20 @@ public class MyTasks extends ListActivity {
 
 				Dialog d = showDailog(currTask);
 				d.show();
-				/*
+				
 				 * ProjectBean currProj = (ProjectBean)
 				 * listProjAdapter.getItem(position); Log.d("gtmanager",
 				 * "current project = "+currProj); Intent intent = new
 				 * Intent(getApplicationContext(), ProjectsList.class);
 				 * intent.putExtra("currentMem", currProj);
 				 * startActivity(intent);
-				 */
+				 
 				Toast.makeText(getApplicationContext(), "Long clicked",
 						Toast.LENGTH_SHORT).show();
 				;
 				return true;
 			}
-		});
+		});*/
 	}
 
 	public Dialog showDailog(TaskBean tb) {
@@ -105,6 +103,7 @@ public class MyTasks extends ListActivity {
 		Log.d("gtmanager", "current project = " + currTask);
 		Intent intent = new Intent(this, TaskDetail.class);
 		intent.putExtra("currentTask", currTask);
+		intent.putExtra("projectName", currTask.getProjectName());
 		startActivity(intent);
 		super.onListItemClick(l, v, position, id);
 
@@ -166,9 +165,9 @@ public class MyTasks extends ListActivity {
 			if (result.equals(Config.SUCCESS)) {
 				Toast.makeText(getApplicationContext(),
 						"Deleted task successfully", Toast.LENGTH_LONG).show();
-				Intent intent = new Intent(getApplicationContext(),
+				/*Intent intent = new Intent(getApplicationContext(),
 						ManagerMenuActivity.class);
-				startActivity(intent);
+				startActivity(intent)*/;
 			} else {
 				Toast.makeText(getApplicationContext(),
 						"Something went wrong, please try again",
@@ -241,6 +240,36 @@ public class MyTasks extends ListActivity {
 				setListAdapter(listTaskAdapter);
 				Toast.makeText(getApplicationContext(), "Loaded Task list ",
 						Toast.LENGTH_LONG).show();
+				
+				ListView lv = getListView();
+				SwipeDismissListViewTouchListener touchListner = new SwipeDismissListViewTouchListener(lv, new SwipeDismissListViewTouchListener.DismissCallbacks() {
+					
+					@Override
+					public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+						if(reverseSortedPositions.length>0){
+						for (int position : reverseSortedPositions) {
+							TaskBean tb = (TaskBean) listTaskAdapter.getItem(position);
+							listTaskAdapter.remove(listTaskAdapter.getItem(position));
+                            Log.d(Config.TAG, "Member bean in swipe "+tb);
+                            new DeleteTask(tb.getTask_sl_no()).execute();
+                            
+                        }
+						listTaskAdapter.notifyDataSetChanged();
+						}else{
+							Toast.makeText(getApplicationContext(), "List empty",
+									Toast.LENGTH_SHORT).show();
+						}
+						
+					}
+					
+					@Override
+					public boolean canDismiss(int position) {
+						// TODO Auto-generated method stub
+						return true;
+					}
+				});
+				lv.setOnTouchListener(touchListner);
+				
 
 			} else {
 				Toast.makeText(getApplicationContext(), "List empty",

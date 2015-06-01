@@ -201,7 +201,7 @@ public class AddTaskOnline extends Activity {
 				BufferedReader br = null;
 				
 				try
-				{
+				{	projName = projName.replaceAll(" ", "%40");
 					String urlStr = new String(Config.CONFIG+"/listMembersOfProject?projName="+projName);
 					URL url = new URL(urlStr); 
 					con = (HttpURLConnection) url.openConnection();
@@ -285,7 +285,13 @@ public class AddTaskOnline extends Activity {
 			@Override
 			protected JSONObject doInBackground(TaskBean... params) {
 				try {
-				String urlStr = new String(Config.CONFIG+"/getJsonaddTaskForProjects?projectName="+tb.getProjectName()+"&taskName="+tb.getTaskName()+"&taskDesc="+tb.getTaskDesc()+"&priority="+tb.getPriority()+"&completionDate="+tb.getTaskCompletionDate()+"&employeeEmail="+memberEmail);
+					String projName = tb.getProjectName();
+					projName = projName.replaceAll(" ", "%40");
+					String taskName = tb.getTaskName();
+					taskName = taskName.replaceAll(" ", "%40");
+					String taskDesc = tb.getTaskDesc();
+					taskDesc = taskDesc.replaceAll(" ", "%40");
+				String urlStr = new String(Config.CONFIG+"/getJsonaddTaskForProjects?projectName="+projName+"&taskName="+taskName+"&taskDesc="+taskDesc+"&priority="+tb.getPriority()+"&completionDate="+tb.getTaskCompletionDate()+"&employeeEmail="+memberEmail);
 				
 					URL url = new URL(urlStr);
 					con = (HttpURLConnection) url.openConnection();

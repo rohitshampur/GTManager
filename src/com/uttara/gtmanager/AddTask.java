@@ -201,6 +201,7 @@ public class AddTask extends Activity {
 			tb.setTaskDesc(descView.getText().toString());
 			tb.setEmployeeEmail(memberEmail);
 			tb.setTaskCompletionDate(selectedDate);
+			Log.d(Config.TAG, "VAlidate bean"+tb.validate());
 			if(tb.validate()==""){
 			Log.d(Config.TAG, "taskBean "+tb);
 			
@@ -231,7 +232,10 @@ public class AddTask extends Activity {
 				try {
 					
 					Log.d(Config.TAG,"Taskbean!!!!!!!!!!------"+tb);
-				String urlStr = new String(Config.CONFIG+"/checkTaskName?taskName="+tb.getTaskName());
+					String taskN = tb.getTaskName();
+					taskN = taskN.replaceAll(" ", "%40");
+					
+				String urlStr = new String(Config.CONFIG+"/checkTaskName?taskName="+taskN);
 				
 					URL url = new URL(urlStr);
 					con = (HttpURLConnection) url.openConnection();

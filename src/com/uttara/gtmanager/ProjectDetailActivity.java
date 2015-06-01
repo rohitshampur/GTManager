@@ -86,7 +86,7 @@ public class ProjectDetailActivity extends Activity {
 			BufferedReader br = null;
 			
 			try
-			{
+			{	projName = projName.replaceAll(" ", "%40");
 				String urlStr = new String(Config.CONFIG+"/listMembersOfProject?projName="+projName);
 				URL url = new URL(urlStr); 
 				con = (HttpURLConnection) url.openConnection();
